@@ -1,0 +1,20 @@
+import bcrypt from "bcrypt";
+
+export class PasswordService {
+  private readonly SALT_ROUNDS = 10;
+
+  getSaltRounds() {
+    return this.SALT_ROUNDS;
+  }
+
+  async hash(password: string): Promise<string> {
+    return bcrypt.hash(password, this.SALT_ROUNDS);
+  }
+
+  async compare(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return bcrypt.compare(plainPassword, hashedPassword);
+  }
+}
